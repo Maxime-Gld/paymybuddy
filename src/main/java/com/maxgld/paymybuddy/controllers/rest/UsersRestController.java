@@ -13,26 +13,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maxgld.paymybuddy.model.User;
 
 import com.maxgld.paymybuddy.repository.UsersRepository;
+import com.maxgld.paymybuddy.services.UsersService;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
-
+public class UsersRestController {
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersService usersService;
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = usersRepository.save(user);
-        if (newUser != null) {
-            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        User newUser = usersService.saveUser(user);
+
+        if (newUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
-        User user = usersRepository.findByEmail(email);
+        User user = usersService.findByEmail(email);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
