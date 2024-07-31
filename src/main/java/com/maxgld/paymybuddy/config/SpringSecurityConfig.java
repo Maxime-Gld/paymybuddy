@@ -21,12 +21,11 @@ public class SpringSecurityConfig {
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 return http
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/login", "/register", "/home").permitAll()
+                                                .requestMatchers("/login", "/register").permitAll()
                                                 .anyRequest().authenticated())
                                 .formLogin(login -> login
                                                 .loginPage("/login")
-                                                .loginProcessingUrl("/login")
-                                                .defaultSuccessUrl("/home")
+                                                .defaultSuccessUrl("/home", true)
                                                 .permitAll())
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
@@ -42,13 +41,10 @@ public class SpringSecurityConfig {
 
         @Bean
         public AuthenticationManager authenticationManager(HttpSecurity http,
-                        BCryptPasswordEncoder bCryptPasswordEncoder)
-                        throws Exception {
+                        BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
                 AuthenticationManagerBuilder authenticationManagerBuilder = http
                                 .getSharedObject(AuthenticationManagerBuilder.class);
-
-                authenticationManagerBuilder
-                                .userDetailsService(customUserDetailsService)
+                authenticationManagerBuilder.userDetailsService(customUserDetailsService)
                                 .passwordEncoder(bCryptPasswordEncoder);
                 return authenticationManagerBuilder.build();
         }
