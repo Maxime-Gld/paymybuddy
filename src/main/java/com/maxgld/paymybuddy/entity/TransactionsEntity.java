@@ -16,10 +16,10 @@ public class TransactionsEntity {
     private int id;
 
     @ManyToOne
-    private UsersEntity senderId;
+    private UserEntity senderId;
 
     @ManyToOne
-    private UsersEntity receiverId;
+    private UserEntity receiverId;
 
     private double amount;
 
