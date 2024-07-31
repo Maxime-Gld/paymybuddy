@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity(name = "users")
-public class UsersEntity {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class UsersEntity {
     private String email;
 
     @ManyToMany
-    private Set<UsersEntity> connections;
+    private Set<UserEntity> connections;
 
     private double balance;
 }
