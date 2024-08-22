@@ -36,6 +36,12 @@
             <div class="mt-1 pt-1">
                 <a th:href="@{${formulaire == 'login' ? '/register' : '/login'}}" th:text="${textLink}"></a>
             </div>
+            <div th:if="${param.logout}" class="text-success mt-3 mx-auto">
+                <p>Vous avez été déconnecté avec succès.</p>
+            </div>
+            <div th:if="${param.error}" class="text-danger mt-3 mx-auto">
+                <p>Identifiant ou mot de passe incorrect.</p>
+            </div>
         </div>
     </main>
 
