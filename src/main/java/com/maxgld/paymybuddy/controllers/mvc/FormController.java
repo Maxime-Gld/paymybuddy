@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.maxgld.paymybuddy.dto.UserCreateDto;
-import com.maxgld.paymybuddy.dto.UserDto;
 import com.maxgld.paymybuddy.services.UserService;
 
 @Controller
@@ -40,11 +39,14 @@ public class FormController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserCreateDto user) {
-        UserDto userDto = usersService.saveUser(user);
-        if (userDto == null) {
+        boolean result = usersService.saveUser(user);
+
+        if (!result) {
             return "redirect:/register";
         }
+
         return "redirect:/login";
+
     }
 
     @GetMapping("/home")

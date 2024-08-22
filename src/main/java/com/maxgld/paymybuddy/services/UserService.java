@@ -1,6 +1,7 @@
 package com.maxgld.paymybuddy.services;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,16 +22,16 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public UserDto saveUser(UserCreateDto user) {
-        UserEntity existing = usersRepository.findByEmail(user.getEmail()).orElse(null);
+    public Boolean saveUser(UserCreateDto user) {
+        Optional<UserEntity> existing = usersRepository.findByEmail(user.getEmail());
 
-        if (existing != null) {
-            return null;
+        if (existing.isPresent()) {
+            return false;
         }
 
-        UserEntity newUser = createUser(user);
+        usersRepository.save(createUser(user));
 
-        return convertToUserDto(usersRepository.save(newUser));
+        return true;
     }
 
     private UserDto convertToUserDto(UserEntity newUser) {
@@ -49,7 +50,6 @@ public class UserService {
         newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         newUser.setBalance(100.0);
         newUser.setConnections(new HashSet<>());
-        System.out.println("newUser : " + newUser);
         return newUser;
     }
 
