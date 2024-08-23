@@ -11,9 +11,9 @@
 <body>
     <main class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
 
-        <div th:id="form" class="d-flex flex-column align-items-center py-5 px-2 border border-dark mx-auto"
+        <div th:id="formLogin" class="d-flex flex-column align-items-center py-5 px-2 border border-dark mx-auto"
             style="width: 350px;">
-            <h2 class="badge mb-3 fs-5 fw-bold p-3" style="background-color: orange;">Pay My Buddy</h2>
+            <h2 class="badge mb-3 fs-5 fw-bold px-3 py-4" style="background-color: orange;">Pay My Buddy</h2>
             <form th:action="@{${action}}" method="post" class="d-flex flex-column align-items-center p-5 pb-2">
                 <div>
                     <div th:if="${formulaire == 'register'}" class="mb-3">
