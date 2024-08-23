@@ -48,9 +48,4 @@ public class FormController {
         return "redirect:/login";
 
     }
-
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
 }
