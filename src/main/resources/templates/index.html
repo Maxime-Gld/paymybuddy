@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Lien vers Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <th:fragment th:replace="~{component/layout/header :: header}"></th:fragment>
+
+    <main class="container" th:if="${page == 'transfer'}">
+        <div class="container mt-5 text-center">
+            <p th:text="'Bonjour ' + ${username} + ', votre solde est de : ' + ${balance} + ' €'">
+            </p>
+            <p th:if="${messageSuccess != null}" class="text-success" th:text="${messageSuccess}"></p>
+            <p th:if="${messageError != null}" class="text-danger" th:text="${messageError}"></p>
+        </div>
+        <p class="fw-bold fs-5 mt-5">Effectuer un virement</p>
+        <th:fragment th:replace="~{component/transfert/formTransfert :: formTransfert}"></th:fragment>
+        <th:fragment th:replace="~{component/transfert/historicalTransfert :: historicalTransfert}"></th:fragment>
+    </main>
+
+    <main th:if="${page == 'profile'}">
+        <th:fragment th:replace="~{component/profile/profile :: profile}"></th:fragment>
+    </main>
+
+    <main th:if="${page == 'addConnection'}">
+        <th:fragment th:replace="~{component/connection/addConnection :: addConnection}"></th:fragment>
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- Lien vers jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
