@@ -1,8 +1,11 @@
 package com.maxgld.paymybuddy.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +37,6 @@ public class UserService {
         return true;
     }
 
-    private UserDto convertToUserDto(UserEntity newUser) {
-
-        UserDto user = new UserDto();
-        user.setUsername(newUser.getUsername());
-        user.setEmail(newUser.getEmail());
-        return user;
-    }
-
     private UserEntity createUser(UserCreateDto user) {
 
         UserEntity newUser = new UserEntity();
@@ -57,17 +52,68 @@ public class UserService {
         return usersRepository.findByEmail(email).orElse(null);
     }
 
-    // send and receive connections
-    /*
-     * public void addConnection(UserCreateDto user, UserCreateDto connection) {
-     * if (!user.getConnections().contains(connection)) {
-     * user.getConnections().add(connection);
-     * }
-     * }
-     * 
-     * public void removeConnection(UserCreateDto user, UserCreateDto connection) {
-     * user.getConnections().remove(connection);
-     * }
-     */
+    public UserEntity findById(int id) {
+        return usersRepository.findById(id).orElse(null);
+    }
 
+    public void addConnection(UserDetails user, String connection) {
+
+        UserEntity userEntity = findByEmail(user.getUsername());
+        UserEntity connectionEntity = findByEmail(connection);
+
+        if (connectionEntity == null) {
+            throw new IllegalArgumentException("Adresse mail introuvable");
+        }
+
+        if (userEntity.getConnections().contains(connectionEntity)) {
+            throw new IllegalArgumentException("Cet utilisateur est déjà dans votre liste d'amis");
+        }
+
+        userEntity.getConnections().add(connectionEntity);
+        usersRepository.save(userEntity);
+    }
+
+    public List<UserDto> getConnections(UserDetails currentUser) {
+        UserEntity user = findByEmail(currentUser.getUsername());
+        return user.getConnections().stream().map(
+                connection -> new UserDto(connection.getId(), connection.getUsername(), connection.getEmail()))
+                .collect(Collectors.toList());
+    }
+
+    public void transfer(UserDetails sender, int receiverId, Double amount) {
+
+        UserEntity userEntity = findByEmail(sender.getUsername());
+        UserEntity connectionEntity = findById(receiverId);
+
+        if (connectionEntity == null) {
+            throw new IllegalArgumentException("Adresse mail introuvable");
+        }
+
+        if (userEntity.getId() == connectionEntity.getId()) {
+            throw new IllegalArgumentException("Vous ne pouvez pas vous envoyer de fonds");
+        }
+
+        if (userEntity.getBalance() < amount) {
+            throw new IllegalArgumentException("Solde insuffisant");
+        }
+
+        userEntity.setBalance(userEntity.getBalance() - amount);
+        connectionEntity.setBalance(connectionEntity.getBalance() + amount);
+        usersRepository.save(userEntity);
+        usersRepository.save(connectionEntity);
+    }
+
+    public Double getBalance(UserDetails user) {
+
+        UserEntity userEntity = findByEmail(user.getUsername());
+
+        return userEntity.getBalance();
+    }
+
+    public String getUsername(UserDetails user) {
+
+        UserEntity userEntity = findByEmail(user.getUsername());
+        UserDto userDto = new UserDto(userEntity.getId(), userEntity.getUsername(), userEntity.getEmail());
+        return userDto.getUsername();
+    }
 }
