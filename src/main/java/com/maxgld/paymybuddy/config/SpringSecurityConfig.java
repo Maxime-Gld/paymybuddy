@@ -26,7 +26,7 @@ public class SpringSecurityConfig {
                                                 .anyRequest().authenticated())
                                 .formLogin(login -> login
                                                 .loginPage("/login")
-                                                .defaultSuccessUrl("/home", true)
+                                                .defaultSuccessUrl("/transfer", true)
                                                 .permitAll())
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
