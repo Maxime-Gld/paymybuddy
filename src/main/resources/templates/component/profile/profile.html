@@ -1,6 +1,26 @@
-<div th:fragment="profile" class="container">
-    <div class="d-flex justify-content-center">
+<div th:fragment="profile" class="container mt-5">
+    <form th:fragment="formTransfert" th:action="@{/profil}" method="post"
+        class="d-flex justify-content-center align-items-end gap-4">
+        <div>
+            <div class="mb-3 d-flex align-items-center gap-4">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control text-end border-0" id="username" name="username"
+                    placeholder="@Username" required>
+            </div>
+            <div class="mb-3 d-flex align-items-center gap-4">
+                <label for="mail" class="form-label">Mail</label>
+                <input type="text" class="form-control text-end border-0" id="mail" name="mail"
+                    placeholder="nom@domain.com" required>
 
-        <h1>Profile</h1>
-    </div>
+            </div>
+            <div class="mb-3 d-flex align-items-center gap-4">
+                <label for="password" class="form-label">Mot de passe</label>
+                <div class="input-group-md">
+                    <input type="text" class="form-control text-end border-0" id=" password" name="password"
+                        placeholder="mot de passe" required>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning text-white p-3">Modifier</button>
+    </form>
 </div>
