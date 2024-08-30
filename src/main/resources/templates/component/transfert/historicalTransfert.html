@@ -1,3 +1,20 @@
-<div th:fragment="historicalTransfert" class="container">
-    <h2>historique des tranferts ici...</h2>
-</div>
+<table th:fragment="historicalTransfert" class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="text-start">Relations</th>
+            <th scope="col" class="text-center">Description</th>
+            <th scope="col" class="text-end">Montant</th>
+        </tr>
+    </thead>
+    <tbody class="mb-3">
+
+        <tr th:each="transaction : ${transactions}">
+            <td scope="row" th:text="${transaction.receiver}" class="text-start">Paul</td>
+            <td th:text="${transaction.description}" class="text-center">Pétanque</td>
+            <td th:text="${transaction.amount} + €" class="text-end">10€</td>
+        </tr>
+        <tr th:if="${transactions.isEmpty()}">
+            <td colspan="4" class="text-center p-5">Aucune transaction enregistrée.</td>
+        </tr>
+    </tbody>
+</table>

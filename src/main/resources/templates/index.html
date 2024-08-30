@@ -17,14 +17,17 @@
 
     <main class="container" th:if="${page == 'transfer'}">
         <div class="container mt-5 text-center">
-            <p th:text="'Bonjour ' + ${username} + ', votre solde est de : ' + ${balance} + ' €'">
-            </p>
             <p th:if="${messageSuccess != null}" class="text-success" th:text="${messageSuccess}"></p>
             <p th:if="${messageError != null}" class="text-danger" th:text="${messageError}"></p>
         </div>
         <p class="fw-bold fs-5 mt-5">Effectuer un virement</p>
         <th:fragment th:replace="~{component/transfert/formTransfert :: formTransfert}"></th:fragment>
-        <th:fragment th:replace="~{component/transfert/historicalTransfert :: historicalTransfert}"></th:fragment>
+
+        <div class="container mt-5 border border-gray rounded">
+            <p class="fw-bold fs-5 mt-3">Mes transactions</p>
+            <th:fragment th:replace="~{component/transfert/historicalTransfert :: historicalTransfert}"></th:fragment>
+
+        </div>
     </main>
 
     <main th:if="${page == 'profile'}">

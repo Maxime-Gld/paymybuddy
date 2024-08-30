@@ -4,22 +4,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
 @Entity(name = "transactions")
-public class TransactionsEntity {
+public class TransactionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    private UserEntity senderId;
+    @JoinColumn(name = "sender_id")
+    private UserEntity sender;
 
     @ManyToOne
-    private UserEntity receiverId;
+    @JoinColumn(name = "receiver_id")
+    private UserEntity receiver;
 
     private double amount;
 
