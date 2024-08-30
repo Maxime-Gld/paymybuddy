@@ -1,27 +1,27 @@
 <!-- formualaire de transfert -->
 
-<form th:fragment="formTransfert" th:action="@{/users/transfer}" method="post"
+<form th:fragment="formTransfert" th:action="@{/transaction/send}" method="post"
     class="d-flex justify-content-evenly align-items-center space-between">
     <div class="mb-3">
-        <label for="connections" class="form-label"></label>
-        <select class="form-select form-select-lg" id="connections" name="connections"
-            aria-label="Sélectionner une relation" required>
+        <label for="receiver" class="form-label"></label>
+        <select class="form-select form-select-md" id="receiver" name="receiver" aria-label="Sélectionner une relation"
+            required>
             <option value="" disabled selected>S&eacute;lectionner une relation</option>
             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
         </select>
     </div>
     <div class="mb-3">
         <label for="description" class="form-label "></label>
-        <div class="input-group input-group-lg">
+        <div class="input-group input-group-md">
 
             <input type="text" class="form-control" id="description" name="description" placeholder="Description"
                 required>
         </div>
     </div>
     <div class="mb-3">
-        <label for="amount" class="form-label"></label>
-        <div class="input-group input-group-lg">
-            <div class="input-group-prepend input-group-lg">
+        <label for="amount" class="form-label fst-italic" th:text="'solde disponible : '+ ${balance}+' €'"></label>
+        <div class="input-group input-group-md">
+            <div class="input-group-prepend input-group-md">
                 <span class="input-group-text bg-light text-dark rounded-0 rounded-start-2">€</span>
             </div>
             <input type="number" class="form-control" id="amount" name="amount" placeholder="0" required>
