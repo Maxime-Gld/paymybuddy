@@ -48,13 +48,14 @@ public class TransactionService {
 
     }
 
-    public List<TransactionDto> getAllTransactionSent(UserDetails user) {
+    public List<TransactionDto> getAllTransaction(UserDetails user) {
 
         UserEntity userEntity = userService.findByEmail(user.getUsername());
         List<TransactionEntity> listTransactionEntities = transactionRepository
-                .findAllBySender(userEntity);
+                .findAllBySenderOrReceiver(userEntity, userEntity);
         List<TransactionDto> listTransactionDtos = listTransactionEntities.stream()
-                .map(transaction -> new TransactionDto(transaction.getReceiver().getUsername(), transaction.getAmount(),
+                .map(transaction -> new TransactionDto(transaction.getSender().getUsername(),
+                        transaction.getReceiver().getUsername(), transaction.getAmount(),
                         transaction.getDescription()))
                 .collect(Collectors.toList());
 

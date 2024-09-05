@@ -29,7 +29,7 @@ public class PageController {
         List<UserDto> connections = usersService.getConnections(user);
         double balance = usersService.getBalance(user);
         String username = usersService.getUsername(user);
-        List<TransactionDto> transactions = transactionService.getAllTransactionSent(user);
+        List<TransactionDto> transactions = transactionService.getAllTransaction(user);
 
         model.addAttribute("transactions", transactions);
         model.addAttribute("username", username);

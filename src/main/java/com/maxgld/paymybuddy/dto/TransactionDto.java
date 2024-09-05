@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TransactionDto {
 
+    private String sender;
+
     private String receiver;
 
     private double amount;

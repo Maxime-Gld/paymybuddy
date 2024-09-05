@@ -76,9 +76,9 @@ class TransactionServiceTest {
         verify(transactionRepository, never()).save(any(TransactionEntity.class));
     }
 
-    // Test for getAllTransactionSent method
+    // Test for getAllTransaction method
     @Test
-    void getAllTransactionSent_TransactionsExist_ShouldReturnListOfTransactionDtos() {
+    void getAllTransaction_TransactionsExist_ShouldReturnListOfTransactionDtos() {
         // Given
         UserEntity sender = new UserEntity();
         sender.setEmail("sender@example.com");
@@ -97,10 +97,10 @@ class TransactionServiceTest {
 
         when(userDetails.getUsername()).thenReturn("sender@example.com");
         when(userService.findByEmail("sender@example.com")).thenReturn(sender);
-        when(transactionRepository.findAllBySender(sender)).thenReturn(transactionEntities);
+        when(transactionRepository.findAllBySenderOrReceiver(sender, sender)).thenReturn(transactionEntities);
 
         // When
-        List<TransactionDto> transactionDtos = transactionService.getAllTransactionSent(userDetails);
+        List<TransactionDto> transactionDtos = transactionService.getAllTransaction(userDetails);
 
         // Then
         assertEquals(1, transactionDtos.size());
@@ -110,17 +110,17 @@ class TransactionServiceTest {
     }
 
     @Test
-    void getAllTransactionSent_NoTransactions_ShouldReturnEmptyList() {
+    void getAllTransaction_NoTransactions_ShouldReturnEmptyList() {
         // Given
         UserEntity sender = new UserEntity();
         sender.setEmail("sender@example.com");
 
         when(userDetails.getUsername()).thenReturn("sender@example.com");
         when(userService.findByEmail("sender@example.com")).thenReturn(sender);
-        when(transactionRepository.findAllBySender(sender)).thenReturn(new ArrayList<>());
+        when(transactionRepository.findAllBySenderOrReceiver(sender, sender)).thenReturn(new ArrayList<>());
 
         // When
-        List<TransactionDto> transactionDtos = transactionService.getAllTransactionSent(userDetails);
+        List<TransactionDto> transactionDtos = transactionService.getAllTransaction(userDetails);
 
         // Then
         assertTrue(transactionDtos.isEmpty());

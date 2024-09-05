@@ -11,6 +11,6 @@ import com.maxgld.paymybuddy.entity.UserEntity;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer> {
 
-    List<TransactionEntity> findAllBySender(UserEntity userEntity);
+    List<TransactionEntity> findAllBySenderOrReceiver(UserEntity userEntity, UserEntity userEntity2);
 
 }
