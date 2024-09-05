@@ -1,27 +1,30 @@
 package com.maxgld.paymybuddy.entity;
 
-import jakarta.persistence.Column;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
 @Data
-@Entity(name = "transactions")
-public class TransactionsEntity {
+@Entity(name = "users")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "sender_id")
-    private int senderId;
+    private String username;
 
-    @Column(name = "receiver_id")
-    private int receiverId;
+    private String password;
 
-    private double amount;
+    private String email;
 
-    private String description;
+    @ManyToMany
+    private Set<UserEntity> connections;
+
+    private double balance;
 }

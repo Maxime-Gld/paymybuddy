@@ -1,0 +1,18 @@
+<div th:fragment="addConnection" class="container p-5 mt-5">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <form action="/users/addConnection" method="post">
+            <div class="d-flex gap-3">
+                <div class="mb-3 justify-content-evenly">
+                    <label for="email" class="form-label fw-semibold">Chercher une relation</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Saisir une adresse mail" aria-describedby="emailHelp" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-warning text-white m-4 p-0 px-3 fw-bold">Ajouter</button>
+            </div>
+        </form>
+        <p th:if="messageError != null" class="text-danger" th:text="${messageError}"></p>
+        <p th:if="messageSuccess != null" class="text-success" th:text="${messageSuccess}"></p>
+    </div>
+</div>

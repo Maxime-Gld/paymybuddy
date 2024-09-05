@@ -1,4 +1,4 @@
-package com.maxgld.paymybuddy.model;
+package com.maxgld.paymybuddy.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserCreateDto {
 
     private String username;
-    private String password;
     private String email;
-    private Double balance;
+    private String password;
 }

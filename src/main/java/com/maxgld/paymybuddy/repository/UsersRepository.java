@@ -1,11 +1,14 @@
 package com.maxgld.paymybuddy.repository;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.maxgld.paymybuddy.entity.UsersEntity;
+import com.maxgld.paymybuddy.entity.UserEntity;
 
 @Repository
-public interface PersonnesRepository extends JpaRepository<UsersEntity, Integer> {
+public interface UsersRepository extends JpaRepository<UserEntity, Integer> {
+
+    Optional<UserEntity> findByEmail(String email);
 
 }

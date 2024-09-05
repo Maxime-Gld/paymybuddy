@@ -1,0 +1,31 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-white mt-3 mx-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold">PayMyBuddy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold fs-meduim p-3" id="home" th:href="@{/transfer}">Transf&eacute;rer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold fs-meduim p-3" id="profile" th:href="@{/profile}">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold fs-meduim p-3" id="addConnection" th:href="@{/addConnection}">Ajouter
+                            relation</a>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="hidden" />
+                            <button class="nav-link fw-bold fs-meduim p-3" type="submit">D&eacute;connexion</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

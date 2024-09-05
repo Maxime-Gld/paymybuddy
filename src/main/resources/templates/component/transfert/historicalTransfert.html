@@ -1,0 +1,22 @@
+<table th:fragment="historicalTransfert" class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center">Emmetteur</th>
+            <th scope="col" class="text-center">Receveur</th>
+            <th scope="col" class="text-center">Description</th>
+            <th scope="col" class="text-center">Montant</th>
+        </tr>
+    </thead>
+    <tbody class="mb-3">
+
+        <tr th:each="transaction : ${transactions}">
+            <td scope="row" th:text="${transaction.sender}" class="text-center">Paul</td>
+            <td scope="row" th:text="${transaction.receiver}" class="text-center">Jean</td>
+            <td th:text="${transaction.description}" class="text-center">Pétanque</td>
+            <td th:text="${transaction.amount} + €" class="text-center">10€</td>
+        </tr>
+        <tr th:if="${transactions.isEmpty()}">
+            <td colspan="4" class="text-center p-5">Aucune transaction enregistrée.</td>
+        </tr>
+    </tbody>
+</table>

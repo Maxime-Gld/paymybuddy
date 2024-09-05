@@ -1,0 +1,31 @@
+/* variable */
+
+:root {
+    --blue: #207fee;
+    --orange: #f69f1d;
+}
+
+/* html */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    color: #333;
+    min-height: 100vh;
+}
+
+
+/* navbar */
+
+.nav-link.active, .nav-link.active:hover {
+    font-weight: bold;
+    color: var(--blue) !important;
+}
+
+.nav-link:hover, .nav-link:focus, .nav-link.active:hover {
+    color: var(--orange) !important;
+}
