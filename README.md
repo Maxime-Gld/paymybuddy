@@ -29,7 +29,7 @@ Pour l’application, j'ai crée :
 
 ## les maquettes 
 
-![maquettes figma](https://www.figma.com/design/F1lT4ZCJwvVjkMk5WSVZbR/Maquettes---Pay-My-Buddy?node-id=0-1&t=LnVC740TuTks1YrK-1)
+[maquettes figma](https://www.figma.com/design/F1lT4ZCJwvVjkMk5WSVZbR/Maquettes---Pay-My-Buddy?node-id=0-1&node-type=CANVAS&t=rAjA4FTi9igB20IR-0)
 
 Ajustement réalisé :
 
