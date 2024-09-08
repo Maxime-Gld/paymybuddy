@@ -34,17 +34,23 @@ public class TransactionService {
         }
     }
 
-    private void RecordTransaction(UserDetails user, int receiverId, double amount, String description) {
+    private void RecordTransaction(UserDetails user, int receiverId, double amount, String description)
+            throws Exception {
 
-        UserEntity sender = userService.findByEmail(user.getUsername());
-        UserEntity receiver = userService.findById(receiverId);
+        try {
+            UserEntity sender = userService.findByEmail(user.getUsername());
+            UserEntity receiver = userService.findById(receiverId);
 
-        TransactionEntity transaction = new TransactionEntity();
-        transaction.setSender(sender);
-        transaction.setReceiver(receiver);
-        transaction.setAmount(amount);
-        transaction.setDescription(description);
-        transactionRepository.save(transaction);
+            TransactionEntity transaction = new TransactionEntity();
+            transaction.setSender(sender);
+            transaction.setReceiver(receiver);
+            transaction.setAmount(amount);
+            transaction.setDescription(description);
+            transactionRepository.save(transaction);
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
 
     }
 
