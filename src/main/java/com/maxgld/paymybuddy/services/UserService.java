@@ -25,6 +25,13 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    /**
+     * Sauvegarde un utilisateur
+     *
+     * @param user l'utilisateur a creer
+     *
+     * @return true si l'utilisateur a ete cree, sinon false
+     */
     public Boolean saveUser(UserCreateDto user) {
         Optional<UserEntity> existing = usersRepository.findByEmail(user.getEmail());
 
@@ -37,6 +44,14 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Cree un utilisateur a partir d'un UserCreateDto
+     * Le mot de passe est chiffre par bcrypt
+     *
+     * @param user l'utilisateur a creer
+     *
+     * @return l'utilisateur cree
+     */
     private UserEntity createUser(UserCreateDto user) {
 
         UserEntity newUser = new UserEntity();
@@ -48,14 +63,38 @@ public class UserService {
         return newUser;
     }
 
+    /**
+     * Recherche un utilisateur par son adresse e-mail
+     *
+     * @param email l'adresse e-mail a rechercher
+     *
+     * @return l'utilisateur trouve, ou null si l'adresse e-mail n'est pas trouvee
+     */
     public UserEntity findByEmail(String email) {
         return usersRepository.findByEmail(email).orElse(null);
     }
 
+    /**
+     * Recherche un utilisateur par son id
+     *
+     * @param id l'id a rechercher
+     *
+     * @return l'utilisateur trouve, ou null si l'id n'est pas trouve
+     */
     public UserEntity findById(int id) {
         return usersRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Ajoute une connection a un utilisateur
+     *
+     * @param user       l'utilisateur qui ajoute une connection
+     * @param connection l'adresse mail de l'utilisateur a ajouter en tant que
+     *                   connection
+     *
+     * @throws IllegalArgumentException si l'adresse mail n'est pas trouvee, ou si
+     *                                  l'utilisateur est deja dans la liste d'amis
+     */
     public void addConnection(UserDetails user, String connection) {
 
         UserEntity userEntity = findByEmail(user.getUsername());
@@ -73,6 +112,13 @@ public class UserService {
         usersRepository.save(userEntity);
     }
 
+    /**
+     * Retourne la liste des relations d'un utilisateur
+     *
+     * @param currentUser l'utilisateur dont on veut connaitre les relations
+     *
+     * @return la liste des relationss
+     */
     public List<UserDto> getConnections(UserDetails currentUser) {
         UserEntity user = findByEmail(currentUser.getUsername());
         return user.getConnections().stream().map(
@@ -80,6 +126,18 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Envoie de l'argent entre deux utilisateurs
+     *
+     * @param sender     l'utilisateur qui envoie de l'argent
+     * @param receiverId l'ID de l'utilisateur qui recoit de l'argent
+     * @param amount     le montant a envoyer
+     *
+     * @throws IllegalArgumentException si l'ID de l'utilisateur n'est pas trouve,
+     *                                  si l'utilisateur envoie de l'argent a
+     *                                  lui-meme, ou si le solde de l'utilisateur
+     *                                  n'est pas suffisant
+     */
     public void transfer(UserDetails sender, int receiverId, Double amount) {
 
         UserEntity userEntity = findByEmail(sender.getUsername());
@@ -103,6 +161,13 @@ public class UserService {
         usersRepository.save(connectionEntity);
     }
 
+    /**
+     * Renvoie le solde de l'utilisateur
+     *
+     * @param user l'utilisateur
+     *
+     * @return le solde de l'utilisateur
+     */
     public Double getBalance(UserDetails user) {
 
         UserEntity userEntity = findByEmail(user.getUsername());

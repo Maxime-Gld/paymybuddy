@@ -24,6 +24,16 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
+    /**
+     * Transfert une somme d'argent entre deux utilisateurs
+     * 
+     * @param user        l'utilisateur qui envoie l'argent
+     * @param receiverId  l'id de l'utilisateur qui recoit l'argent
+     * @param amount      la somme d'argent a transferer
+     * @param description la description du transfert
+     * @throws Exception si l'utilisateur n'a pas assez d'argent, ou si un autre
+     *                   probleme survient
+     */
     @Transactional
     public void transfer(UserDetails user, int receiverId, double amount, String description) throws Exception {
         try {
@@ -34,6 +44,16 @@ public class TransactionService {
         }
     }
 
+    /**
+     * Enregistre une transaction
+     * 
+     * @param user        l'utilisateur qui envoie l'argent
+     * @param receiverId  l'id de l'utilisateur qui recoit l'argent
+     * @param amount      la somme d'argent a transferer
+     * @param description la description du transfert
+     * @throws Exception si l'utilisateur n'a pas assez d'argent, ou si un autre
+     *                   probleme survient
+     */
     private void RecordTransaction(UserDetails user, int receiverId, double amount, String description)
             throws Exception {
 
@@ -54,6 +74,12 @@ public class TransactionService {
 
     }
 
+    /**
+     * Retourne la liste de toutes les transactions de l'utilisateur
+     * 
+     * @param user l'utilisateur
+     * @return la liste des transactions
+     */
     public List<TransactionDto> getAllTransaction(UserDetails user) {
 
         UserEntity userEntity = userService.findByEmail(user.getUsername());
