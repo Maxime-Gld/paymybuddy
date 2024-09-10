@@ -17,6 +17,12 @@ public class FormController {
     @Autowired
     private UserService usersService;
 
+    /**
+     * Affiche le formulaire de login
+     * 
+     * @param model le model de la vue
+     * @return la vue de login
+     */
     @GetMapping("/login")
     public ModelAndView login(Model model) {
         model.addAttribute("formulaire", "login");
@@ -27,6 +33,12 @@ public class FormController {
         return new ModelAndView("login-register");
     }
 
+    /**
+     * Affiche le formulaire d'inscription
+     * 
+     * @param model le model de la vue
+     * @return la vue de signup
+     */
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("formulaire", "register");
@@ -37,6 +49,14 @@ public class FormController {
         return "login-register";
     }
 
+    /**
+     * Enregistre un utilisateur et le redirige vers la page de login si cela
+     * fonctionne.
+     * 
+     * @param user le formulaire d'inscription
+     * @return la page de login si l'enregistrement a fonctionné, sinon la page de
+     *         signup
+     */
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserCreateDto user) {
         boolean result = usersService.saveUser(user);

@@ -23,6 +23,14 @@ public class PageController {
     @Autowired
     private TransactionService transactionService;
 
+    /**
+     * Affiche la page de transfert, avec la liste des virements,
+     * le solde, le nom d'utilisateur et la liste des relations.
+     *
+     * @param model le model qui contiendra les attributs
+     * @param user  le détails de l'utilisateur connecté
+     * @return le nom de la page html
+     */
     @GetMapping("/transfer")
     public String transfer(Model model, @AuthenticationPrincipal UserDetails user) {
 
@@ -40,6 +48,12 @@ public class PageController {
         return "index";
     }
 
+    /**
+     * Affiche la page du profil.
+     *
+     * @param model le model qui contiendra les attributs
+     * @return le nom de la page html
+     */
     @GetMapping("/profile")
     public String profile(Model model) {
 
@@ -48,6 +62,12 @@ public class PageController {
         return "index";
     }
 
+    /**
+     * Affiche la page d'ajout de relation.
+     *
+     * @param model le model qui contiendra les attributs
+     * @return le nom de la page html
+     */
     @GetMapping("/addConnection")
     public String addConnection(Model model) {
 
