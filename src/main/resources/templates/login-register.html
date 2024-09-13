@@ -42,6 +42,12 @@
             <div th:if="${param.error}" class="text-danger mt-3 mx-auto">
                 <p>Identifiant ou mot de passe incorrect.</p>
             </div>
+            <div th:if="${param.existing}" class="text-danger mt-3 mx-auto">
+                <p>Cet email est déjà utilisé.</p>
+            </div>
+            <div th:if="${param.success}" class="text-succes mt-3 mx-auto">
+                <p>Vous pouvez à présent vous connecter.</p>
+            </div>
         </div>
     </main>
 
