@@ -55,17 +55,17 @@ public class FormController {
      * 
      * @param user le formulaire d'inscription
      * @return la page de login si l'enregistrement a fonctionné, sinon la page de
-     *         signup
+     *         signup avec un message d'erreur
      */
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserCreateDto user) {
         boolean result = usersService.saveUser(user);
 
         if (!result) {
-            return "redirect:/register";
+            return "redirect:/register?existing";
         }
 
-        return "redirect:/login";
+        return "redirect:/login?success";
 
     }
 }
